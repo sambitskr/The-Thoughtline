@@ -93,7 +93,6 @@ header .menu-toggle {
     width: 100%;
     background: #0e94a0;
     max-height: 0px;
-    border: 1px solid red;
     overflow: hidden;
   }
 
@@ -121,7 +120,7 @@ header .menu-toggle {
   header ul li ul li a:hover {
     color: #02696d;
   }
-  
+
   header ul li ul li a.logout {
     color: red;
   }
@@ -132,7 +131,6 @@ header .menu-toggle {
     right: 20px;
     top: 20px;
     font-size: 1.9em;
-    /* border: 1px solid red; */
   }
 
   header .logo {
