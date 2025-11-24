@@ -90,7 +90,6 @@ header .menu-toggle {
 /* post-slider */
 .post-slider {
   position: relative;
-
 }
 
 .post-slider .slider-title {
@@ -121,7 +120,6 @@ header .menu-toggle {
   height: 350px;
   margin: 0px auto;
   overflow: hidden;
-
 }
 
 .post-slider .post-wrapper .post {
@@ -144,6 +142,66 @@ header .menu-toggle {
   height: 200px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+}
+
+/* ----------------------------  content -------------------- */
+.content {
+  width: 90%;
+  margin: 30px auto 3px;
+  /* border: 1px solid red; */
+}
+
+.content .main-content {
+  width: 70%;
+  float: left;
+  /* border: 1px solid blue; */
+}
+
+.content .main-content .post {
+  width: 95%;
+  height: 270px;
+  margin: 20px auto;
+  border-radius: 5px;
+  background-color: white;
+  position: relative;
+}
+
+.content .main-content .post .read-more {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border: 1px solid #005255;
+  background: transparent;
+  border-radius: 0px;
+  color: #005255 !important;
+}
+
+.content .main-content .post .read-more:hover {
+  background: #006669;
+  color: white !important;
+  transition: .25s;
+}
+
+.content .main-content .post .post-image {
+  width: 40%;
+  height: 100%;
+  float: left;
+}
+
+.content .main-content .post .post-preview {
+  width: 60%;
+  padding: 10px;
+  float: right;
+}
+
+.content .main-content .recent-post-title {
+  margin: 20px;
+}
+.content .sidebar {
+  width: 30%;
+  float: left;
+  /* border: 1px dashed green; */
+  height: 300px;
 }
 
 /* ---------------------------media queries---------------------- */
@@ -218,6 +276,25 @@ h6 {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  background: #008489;
+  color: white;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+.btn:hover {
+  color: white !important;
+  background: #006669;
 }
 
 body {
