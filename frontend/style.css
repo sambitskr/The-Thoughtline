@@ -90,7 +90,7 @@ header .menu-toggle {
 /* post-slider */
 .post-slider {
   position: relative;
-  border: 1px solid red;
+
 }
 
 .post-slider .slider-title {
@@ -121,7 +121,7 @@ header .menu-toggle {
   height: 350px;
   margin: 0px auto;
   overflow: hidden;
-  border: 1px dashed red;
+
 }
 
 .post-slider .post-wrapper .post {
@@ -137,7 +137,6 @@ header .menu-toggle {
 .post-slider .post-wrapper .post .post-info {
   height: 130px;
   padding: 0px 5px;
-  border: 1px solid green;
 }
 
 .post-slider .post-wrapper .post .slider-image {
