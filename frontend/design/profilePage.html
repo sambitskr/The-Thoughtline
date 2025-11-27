@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile Editor | The Algorithmic Scroll</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font family -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the dark, modern theme */
+        :root {
+            --primary-color: #3b82f6; /* Tailwind Blue 500 */
+            --bg-dark: #0a0a0a;
+            --text-light: #f5f5f5;
+            --card-dark: #1f2937; /* Tailwind Gray 800 */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+        }
+        .frosted-glass {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background-color: rgba(10, 10, 10, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        /* Custom input focus style */
+        .form-input-custom:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+            outline: none;
+        }
+        /* Loading spinner animation (kept for potential use, but hidden initially) */
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+        .spinner {
+          animation: spin 1s linear infinite;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- 1. HEADER (Sticky, Frosted Glass Effect) -->
+    <header class="frosted-glass fixed top-0 left-0 w-full z-50 h-20">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+            <!-- Logo/Brand -->
+            <a href="#" class="text-2xl font-black tracking-tighter text-blue-400 hover:text-blue-300 transition-colors">
+                &lt;AlgorithmicScroll/&gt;
+            </a>
+
+            <!-- User ID Display (Static placeholder for design) -->
+            <div id="user-id-display" class="text-xs text-gray-500 bg-gray-900 px-3 py-1 rounded-full truncate max-w-xs md:max-w-md">
+                User ID: STATIC-UI-001234567890
+            </div>
+            
+            <!-- Back Button -->
+            <a href="#" class="bg-gray-800 hover:bg-gray-700 transition-colors text-white py-2 px-4 rounded-lg font-semibold shadow-md">
+                &larr; Back to Site
+            </a>
+        </nav>
+    </header>
+
+    <!-- 2. MAIN PROFILE EDITOR SECTION -->
+    <main class="pt-24 pb-12">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Loading overlay is removed/hidden since no data fetching is needed -->
+            <div id="profile-container" class="">
+                <header class="text-center mb-12">
+                    <h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-600">
+                        Edit Profile
+                    </h1>
+                    <p class="mt-2 text-xl text-gray-400">Manage your identity on The Algorithmic Scroll (Frontend View).</p>
+                </header>
+                
+                <!-- Profile Form Card -->
+                <div class="bg-gray-900 rounded-3xl shadow-2xl p-6 md:p-10 border border-gray-800">
+                    <form id="profile-form">
+                        
+                        <!-- Avatar Section -->
+                        <div class="flex flex-col items-center mb-10 border-b border-gray-800 pb-8">
+                            <img id="profile-avatar" src="https://placehold.co/128x128/3b82f6/ffffff?text=U" alt="User Avatar" class="w-32 h-32 rounded-full object-cover border-4 border-blue-500 mb-4">
+                            <input type="url" id="avatarUrl" name="avatarUrl" placeholder="Paste image URL here" 
+                                   class="form-input-custom w-full max-w-md p-3 rounded-xl bg-gray-800 border-2 border-gray-700 text-sm mt-3 transition-all focus:ring-0">
+                            <p class="text-xs text-gray-500 mt-1">Use a direct image link for your avatar.</p>
+                        </div>
+                        
+                        <!-- Name Field -->
+                        <div class="mb-6">
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Display Name</label>
+                            <input type="text" id="name" name="name" required placeholder="e.g., Alex Vancini" value="Guest User"
+                                   class="form-input-custom w-full p-4 rounded-xl bg-gray-800 border-2 border-gray-700 text-lg transition-all focus:ring-0">
+                        </div>
+                        
+                        <!-- Email Field (Read-only static value) -->
+                        <div class="mb-6">
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                            <input type="email" id="email" name="email" readonly value="static.guest@algorithmicscroll.com"
+                                   class="form-input-custom w-full p-4 rounded-xl bg-gray-800 border-2 border-gray-700 text-lg text-gray-500 cursor-not-allowed">
+                            <p class="text-xs text-gray-500 mt-1">This is for display only and cannot be changed here.</p>
+                        </div>
+
+                        <!-- Bio Field -->
+                        <div class="mb-8">
+                            <label for="bio" class="block text-sm font-medium text-gray-300 mb-2">Short Bio</label>
+                            <textarea id="bio" name="bio" rows="4" placeholder="Tell the community a little about yourself (e.g., AI enthusiast, DeFi trader, security researcher)."
+                                      class="form-input-custom w-full p-4 rounded-xl bg-gray-800 border-2 border-gray-700 text-base transition-all focus:ring-0">I enjoy coding responsive web interfaces using Tailwind CSS.</textarea>
+                        </div>
+
+                        <!-- Status and Submit Button -->
+                        <div class="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+                            <div id="status-message" class="text-sm font-medium h-6"></div>
+                            
+                            <button type="submit" id="save-button"
+                                    class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 transition-all text-white py-3 px-8 rounded-xl font-bold text-lg shadow-xl shadow-blue-600/30">
+                                Save Profile (Design Only)
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 3. LOCAL JAVASCRIPT FOR UI/FORM HANDLING (NO FIREBASE) -->
+    <script>
+        // --- DOM Elements ---
+        const profileForm = document.getElementById('profile-form');
+        const statusMessage = document.getElementById('status-message');
+        const saveButton = document.getElementById('save-button');
+        const profileAvatar = document.getElementById('profile-avatar');
+        
+        // --- Utility Functions ---
+        function updateStatus(message, isError = false) {
+            statusMessage.textContent = message;
+            statusMessage.className = isError ? 'text-sm font-medium text-red-500 h-6' : 'text-sm font-medium text-green-500 h-6';
+        }
+
+        // --- Form Submission (Design only) ---
+        profileForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            saveButton.disabled = true;
+            saveButton.textContent = 'Processing...';
+            updateStatus("Simulating save operation...", false);
+
+            // Simulate network delay for UI feedback
+            await new Promise(resolve => setTimeout(resolve, 1500)); 
+
+            updateStatus("Profile design simulated as saved!", false);
+            saveButton.disabled = false;
+            saveButton.textContent = 'Save Profile (Design Only)';
+        });
+
+        // --- Avatar Preview Update ---
+        document.getElementById('avatarUrl').addEventListener('input', (e) => {
+            const url = e.target.value;
+            const currentName = document.getElementById('name').value;
+            
+            // Basic URL check
+            if (url.startsWith('http')) {
+                profileAvatar.src = url;
+            }
+            // Use onerror to fallback to a placeholder if the URL is invalid or broken
+            profileAvatar.onerror = () => {
+                profileAvatar.src = `https://placehold.co/128x128/3b82f6/ffffff?text=${currentName ? currentName[0] : 'U'}`;
+                profileAvatar.onerror = null; // Prevent infinite error loop
+            };
+        });
+    </script>
+</body>
+</html>
