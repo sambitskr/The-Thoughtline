@@ -271,6 +271,29 @@ header .menu-toggle {
   transition: all 0.3s;
 }
 
+.auth-content {
+  width: 30%;
+  margin: 50px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 5px;
+}
+
+.auth-content .form-title {
+  text-align: center;
+}
+.auth-content form div {
+  margin-bottom: 10px;
+}
+
+.auth-content form p {
+  text-align: center;
+}
+
+.auth-content form p a {
+  text-decoration: underline;
+}
+
 /* ---------------- footer ------------ */
 .footer {
   background: #303036;
@@ -455,6 +478,8 @@ a {
   color: white;
   border: 1px solid transparent;
   border-radius: 0.25rem;
+  font-size: 1.08em;
+  font-family: 'Lora', serif;
 }
 
 .btn-big {
