@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Editor | The Algorithmic Scroll</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font family -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the dark, modern theme */
+        :root {
+            --primary-color: #3b82f6; /* Tailwind Blue 500 */
+            --bg-dark: #0a0a0a;
+            --text-light: #f5f5f5;
+            --card-dark: #1f2937; /* Tailwind Gray 800 */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .frosted-glass {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background-color: rgba(10, 10, 10, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        /* Custom input/textarea focus style */
+        .form-input-custom:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+            outline: none;
+        }
+        .form-input-custom {
+            transition: all 0.2s ease;
+        }
+        /* Placeholder for content area */
+        #content-area::placeholder {
+            color: #4b5563; /* Gray 600 */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- 1. HEADER (Sticky, Frosted Glass Effect) -->
+    <header class="frosted-glass fixed top-0 left-0 w-full z-50 h-20">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+            <!-- Logo/Brand -->
+            <a href="#" class="text-2xl font-black tracking-tighter text-blue-400 hover:text-blue-300 transition-colors">
+                &lt;AlgorithmicScroll/&gt;
+            </a>
+
+            <!-- Navigation Placeholder -->
+            <div class="text-xs text-gray-400 bg-gray-900 px-3 py-1 rounded-full truncate max-w-xs md:max-w-md">
+                Post Editor
+            </div>
+            
+            <!-- Back to Dashboard -->
+            <a href="#" class="bg-gray-800 hover:bg-gray-700 transition-colors text-white py-2 px-4 rounded-lg font-semibold shadow-md">
+                &larr; Dashboard
+            </a>
+        </nav>
+    </header>
+
+    <!-- 2. MAIN POST EDITOR SECTION -->
+    <main class="pt-24 pb-12 flex-grow">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <header class="mb-8 border-b border-gray-800 pb-4">
+                <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-600">
+                    New Post
+                </h1>
+                <p class="mt-1 text-md text-gray-400">Write, edit, and publish your next thought piece.</p>
+            </header>
+            
+            <!-- Editor Content Card -->
+            <div class="bg-gray-900 rounded-3xl shadow-2xl p-6 md:p-10 border border-gray-800">
+                
+                <form id="post-editor-form">
+
+                    <!-- Title Input -->
+                    <div class="mb-6">
+                        <label for="post-title" class="block text-sm font-medium text-gray-300 mb-2">Post Title</label>
+                        <input type="text" id="post-title" name="title" required placeholder="The Ultimate Guide to Decentralized Autonomous Organizations"
+                               class="form-input-custom w-full p-4 rounded-xl bg-gray-800 border-2 border-gray-700 text-xl font-bold transition-all focus:ring-0">
+                    </div>
+
+                    <!-- Slug and Category (Split Layout) -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                        
+                        <!-- Slug Input -->
+                        <div class="md:col-span-2">
+                            <label for="post-slug" class="block text-sm font-medium text-gray-300 mb-2">URL Slug</label>
+                            <input type="text" id="post-slug" name="slug" required placeholder="e.g., ultimate-guide-daos"
+                                   class="form-input-custom w-full p-3 rounded-xl bg-gray-800 border-2 border-gray-700 text-base transition-all focus:ring-0">
+                            <p class="text-xs text-gray-500 mt-1">Short, hyphenated version of the title for the URL.</p>
+                        </div>
+
+                        <!-- Category Select -->
+                        <div class="md:col-span-1">
+                            <label for="post-category" class="block text-sm font-medium text-gray-300 mb-2">Category</label>
+                            <select id="post-category" name="category" required
+                                    class="form-input-custom w-full p-3 rounded-xl bg-gray-800 border-2 border-gray-700 text-base transition-all focus:ring-0 appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2020%2020%22%20fill=%22%239CA3AF%22%3e%3cpath%20fill-rule=%22evenodd%22%20d=%22M5.293%207.293a1%201%200%20011.414%200L10%2010.586l3.293-3.293a1%201%200%20111.414%201.414l-4%204a1%201%200%2001-1.414%200l-4-4a1%201%200%20010-1.414z%22%20clip-rule=%22evenodd%22%3e%3c/path%3e%3c/svg%3e')] bg-no-repeat bg-[length:1.2em] bg-[position:calc(100%-12px)_center]">
+                                <option value="tech">Technology</option>
+                                <option value="crypto">Web3 & Crypto</option>
+                                <option value="ai" selected>AI & Data</option>
+                                <option value="ethics">Ethics & Future</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Featured Image URL and Preview -->
+                    <div class="mb-6">
+                        <label for="featured-image-url" class="block text-sm font-medium text-gray-300 mb-2">Featured Image URL</label>
+                        <input type="url" id="featured-image-url" name="featuredImageUrl" placeholder="https://images.unsplash.com/your-image-id..."
+                               class="form-input-custom w-full p-3 rounded-xl bg-gray-800 border-2 border-gray-700 text-base transition-all focus:ring-0">
+                        <div class="mt-4 p-3 bg-gray-800 border border-gray-700 rounded-xl">
+                            <p class="text-xs text-gray-500 mb-2">Image Preview:</p>
+                            <img id="image-preview" src="https://placehold.co/1200x400/1f2937/ffffff?text=Featured+Image+Preview" alt="Featured Image Preview" 
+                                 class="w-full h-40 object-cover rounded-lg border border-gray-700 transition-opacity duration-300 opacity-80">
+                        </div>
+                    </div>
+
+                    <!-- Main Content Area -->
+                    <div class="mb-8">
+                        <label for="content-area" class="block text-sm font-medium text-gray-300 mb-2">Post Content (Markdown or HTML)</label>
+                        <textarea id="content-area" name="content" rows="15" required 
+                                  placeholder="Start writing your amazing article here..."
+                                  class="form-input-custom w-full p-5 rounded-xl bg-gray-800 border-2 border-gray-700 text-base transition-all focus:ring-0 resize-y"></textarea>
+                    </div>
+
+                    <!-- Action Buttons and Status -->
+                    <div class="flex flex-col sm:flex-row justify-end items-center space-y-4 sm:space-y-0 sm:space-x-4 pt-4 border-t border-gray-800">
+                        
+                        <!-- Status Message -->
+                        <div id="status-message" class="text-sm font-medium h-6 w-full sm:w-auto text-center sm:text-left"></div>
+
+                        <!-- Save Draft Button -->
+                        <button type="button" id="save-draft-button"
+                                class="w-full sm:w-auto bg-gray-700 hover:bg-gray-600 transition-all text-white py-3 px-8 rounded-xl font-bold text-lg shadow-md">
+                            Save Draft
+                        </button>
+                        
+                        <!-- Publish Button -->
+                        <button type="submit" id="publish-button"
+                                class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 transition-all text-white py-3 px-8 rounded-xl font-bold text-lg shadow-xl shadow-blue-600/30">
+                            Publish Post
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- 3. LOCAL JAVASCRIPT FOR UI HANDLING (NO FIREBASE) -->
+    <script>
+        // --- DOM Elements ---
+        const postEditorForm = document.getElementById('post-editor-form');
+        const featuredImageUrlInput = document.getElementById('featured-image-url');
+        const imagePreview = document.getElementById('image-preview');
+        const saveDraftButton = document.getElementById('save-draft-button');
+        const publishButton = document.getElementById('publish-button');
+        const statusMessage = document.getElementById('status-message');
+        const postTitleInput = document.getElementById('post-title');
+        const postSlugInput = document.getElementById('post-slug');
+
+
+        // --- Utility Functions ---
+        function updateStatus(message, isError = false) {
+            statusMessage.textContent = message;
+            statusMessage.className = isError 
+                ? 'text-sm font-medium text-red-500 h-6 w-full sm:w-auto text-center sm:text-left' 
+                : 'text-sm font-medium text-green-500 h-6 w-full sm:w-auto text-center sm:text-left';
+            setTimeout(() => { statusMessage.textContent = ''; }, 4000); // Clear after 4 seconds
+        }
+        
+        function setButtonState(button, text, disabled) {
+            button.textContent = text;
+            button.disabled = disabled;
+            button.classList.toggle('opacity-50', disabled);
+            button.classList.toggle('cursor-not-allowed', disabled);
+        }
+
+        // --- Image Preview Logic ---
+        featuredImageUrlInput.addEventListener('input', (e) => {
+            const url = e.target.value.trim();
+            if (url.startsWith('http')) {
+                imagePreview.src = url;
+                imagePreview.classList.remove('opacity-80');
+            } else {
+                imagePreview.src = 'https://placehold.co/1200x400/1f2937/ffffff?text=Featured+Image+Preview';
+                imagePreview.classList.add('opacity-80');
+            }
+
+            imagePreview.onerror = () => {
+                imagePreview.src = 'https://placehold.co/1200x400/a00/ffffff?text=Image+Load+Error';
+                imagePreview.classList.remove('opacity-80');
+                updateStatus('Could not load image URL.', true);
+            };
+        });
+
+        // --- Auto-generate Slug from Title ---
+        postTitleInput.addEventListener('input', (e) => {
+            const title = e.target.value;
+            // Basic slugification: lowercase, replace non-alphanumeric/spaces with hyphens, remove leading/trailing hyphens.
+            const slug = title
+                .toLowerCase()
+                .trim()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/[\s_]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+            postSlugInput.value = slug;
+        });
+
+        // --- Form Submission (Publish Simulation) ---
+        postEditorForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            setButtonState(publishButton, 'Publishing...', true);
+            setButtonState(saveDraftButton, 'Saving...', true);
+            
+            updateStatus("Simulating post publication...", false);
+
+            // Simulate network delay
+            await new Promise(resolve => setTimeout(resolve, 2500)); 
+
+            updateStatus("Post published successfully! (Simulation)", false);
+            
+            setButtonState(publishButton, 'Publish Post', false);
+            setButtonState(saveDraftButton, 'Save Draft', false);
+        });
+        
+        // --- Save Draft Simulation ---
+        saveDraftButton.addEventListener('click', async () => {
+            setButtonState(publishButton, 'Saving...', true);
+            setButtonState(saveDraftButton, 'Saving Draft...', true);
+            
+            updateStatus("Simulating draft save...", false);
+
+            // Simulate network delay
+            await new Promise(resolve => setTimeout(resolve, 1500)); 
+
+            updateStatus("Draft saved successfully! (Simulation)", false);
+            
+            setButtonState(publishButton, 'Publish Post', false);
+            setButtonState(saveDraftButton, 'Save Draft', false);
+        });
+
+    </script>
+</body>
+</html>

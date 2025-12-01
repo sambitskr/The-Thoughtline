@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Sign Up | The Algorithmic Scroll</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font family -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the dark, modern theme */
+        :root {
+            --primary-color: #3b82f6; /* Tailwind Blue 500 */
+            --bg-dark: #0a0a0a;
+            --text-light: #f5f5f5;
+            --card-dark: #1f2937; /* Tailwind Gray 800 */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .frosted-glass {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background-color: rgba(10, 10, 10, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        /* Custom input focus style */
+        .form-input-custom {
+            transition: all 0.3s ease;
+        }
+        .form-input-custom:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+            outline: none;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- 1. HEADER (Sticky, Frosted Glass Effect) -->
+    <header class="frosted-glass fixed top-0 left-0 w-full z-50 h-20">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+            <!-- Logo/Brand -->
+            <a href="#" class="text-2xl font-black tracking-tighter text-blue-400 hover:text-blue-300 transition-colors">
+                &lt;AlgorithmicScroll/&gt;
+            </a>
+
+            <!-- Navigation Placeholder -->
+            <div class="text-xs text-gray-500 bg-gray-900 px-3 py-1 rounded-full truncate max-w-xs md:max-w-md">
+                Secure Authentication
+            </div>
+            
+            <!-- Home Link -->
+            <a href="#" class="bg-gray-800 hover:bg-gray-700 transition-colors text-white py-2 px-4 rounded-lg font-semibold shadow-md">
+                &larr; Home
+            </a>
+        </nav>
+    </header>
+
+    <!-- 2. MAIN LOGIN/SIGNUP SECTION (Centered on Screen) -->
+    <main class="flex flex-grow justify-center items-center p-4 pt-24">
+        <div class="w-full max-w-md">
+            
+            <!-- Authentication Card -->
+            <div class="bg-gray-900 rounded-3xl shadow-2xl p-6 md:p-10 border border-gray-800">
+                
+                <header class="text-center mb-8">
+                    <h1 id="form-title" class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-600">
+                        Login
+                    </h1>
+                    <p id="form-subtitle" class="mt-1 text-md text-gray-400">Access your personalized content stream.</p>
+                </header>
+                
+                <form id="auth-form">
+                    
+                    <!-- Name Field (Only for Sign Up) -->
+                    <div id="name-field" class="mb-4 hidden">
+                        <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Display Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your name or handle"
+                               class="form-input-custom w-full p-3 rounded-xl bg-gray-800 border-2 border-gray-700 text-base transition-all focus:ring-0">
+                    </div>
+                    
+                    <!-- Email Field -->
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                        <input type="email" id="email" name="email" required placeholder="name@example.com"
+                               class="form-input-custom w-full p-3 rounded-xl bg-gray-800 border-2 border-gray-700 text-base transition-all focus:ring-0">
+                    </div>
+                    
+                    <!-- Password Field -->
+                    <div class="mb-6">
+                        <label for="password" class="block text-sm font-medium text-gray-300 mb-2">Password</label>
+                        <input type="password" id="password" name="password" required placeholder="••••••••"
+                               class="form-input-custom w-full p-3 rounded-xl bg-gray-800 border-2 border-gray-700 text-base transition-all focus:ring-0">
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="submit-button"
+                            class="w-full bg-blue-600 hover:bg-blue-700 transition-all text-white py-3 rounded-xl font-bold text-lg shadow-xl shadow-blue-600/30">
+                        Log In
+                    </button>
+
+                    <!-- Status Message -->
+                    <div id="status-message" class="text-center mt-4 text-sm font-medium h-4"></div>
+                </form>
+
+                <!-- Footer Toggle -->
+                <div class="mt-8 pt-6 border-t border-gray-800 text-center">
+                    <p id="toggle-text" class="text-gray-400">
+                        Don't have an account? 
+                        <a href="#" id="auth-toggle-link" class="text-blue-400 hover:text-blue-300 font-semibold transition-colors">
+                            Sign Up
+                        </a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- 3. LOCAL JAVASCRIPT FOR UI TOGGLE AND SIMULATION -->
+    <script>
+        // --- DOM Elements ---
+        const authForm = document.getElementById('auth-form');
+        const formTitle = document.getElementById('form-title');
+        const formSubtitle = document.getElementById('form-subtitle');
+        const submitButton = document.getElementById('submit-button');
+        const nameField = document.getElementById('name-field');
+        const authToggleLink = document.getElementById('auth-toggle-link');
+        const toggleText = document.getElementById('toggle-text');
+        const statusMessage = document.getElementById('status-message');
+
+        let isLoginMode = true;
+
+        // --- Utility Functions ---
+        function updateStatus(message, isError = false) {
+            statusMessage.textContent = message;
+            statusMessage.className = isError ? 'text-center text-sm font-medium text-red-500 h-4' : 'text-center text-sm font-medium text-green-500 h-4';
+        }
+
+        // --- Toggle Mode Function ---
+        function toggleAuthMode(e) {
+            e.preventDefault();
+            isLoginMode = !isLoginMode;
+            statusMessage.textContent = ''; // Clear status
+
+            if (isLoginMode) {
+                formTitle.textContent = 'Login';
+                formSubtitle.textContent = 'Access your personalized content stream.';
+                submitButton.textContent = 'Log In';
+                nameField.classList.add('hidden');
+                toggleText.innerHTML = `Don't have an account? <a href="#" id="auth-toggle-link" class="text-blue-400 hover:text-blue-300 font-semibold transition-colors">Sign Up</a>`;
+            } else {
+                formTitle.textContent = 'Create Account';
+                formSubtitle.textContent = 'Join the Algorithmic Scroll community.';
+                submitButton.textContent = 'Sign Up';
+                nameField.classList.remove('hidden');
+                toggleText.innerHTML = `Already have an account? <a href="#" id="auth-toggle-link" class="text-blue-400 hover:text-blue-300 font-semibold transition-colors">Log In</a>`;
+            }
+            // Re-attach listener to the newly created link
+            document.getElementById('auth-toggle-link').addEventListener('click', toggleAuthMode);
+        }
+
+        // --- Form Submission (Simulation) ---
+        authForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const actionText = isLoginMode ? 'Logging in' : 'Signing up';
+            
+            submitButton.disabled = true;
+            submitButton.textContent = `${actionText}...`;
+            updateStatus(`Simulating ${actionText.toLowerCase()}...`, false);
+
+            // Simulate network delay
+            await new Promise(resolve => setTimeout(resolve, 2000)); 
+
+            updateStatus(`${actionText} simulated successfully!`, false);
+            
+            // Revert button state
+            submitButton.disabled = false;
+            submitButton.textContent = isLoginMode ? 'Log In' : 'Sign Up';
+        });
+
+        // Initial setup
+        document.getElementById('auth-toggle-link').addEventListener('click', toggleAuthMode);
+    </script>
+</body>
+</html>
